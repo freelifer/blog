@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on Freelifer - 个人博客</title>
+    <link>http://localhost:1313/tags/golang/</link>
+    <description>Recent content in golang on Freelifer - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 15 May 2018 10:20:04 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>docker golang编译</title>
+      <link>http://localhost:1313/post/docker-golang%E7%BC%96%E8%AF%91/</link>
+      <pubDate>Tue, 15 May 2018 10:20:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/docker-golang%E7%BC%96%E8%AF%91/</guid>
+      <description>基于scratch镜像 Docker生态系统有一个特殊的镜像：scratch.这是一个空镜像。它不需要被创建或者下载，因为定义的就是空的。 1. 在</description>
+    </item>
+    
+  </channel>
+</rss>

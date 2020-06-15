@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Freelifer - 个人博客</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Freelifer - 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 20 Aug 2017 21:38:52 +0800</lastBuildDate>
+    
+        <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于我</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
+      
+      <guid>http://localhost:1313/about/</guid>
+      
+        <description></description>
+      
+    </item>
+    
+    <item>
+      <title>阿里云ECS搭建Docker</title>
+      <link>http://localhost:1313/post/%E9%98%BF%E9%87%8C%E4%BA%91ecs%E6%90%AD%E5%BB%BAdocker/</link>
+      <pubDate>Tue, 16 Oct 2018 10:11:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/%E9%98%BF%E9%87%8C%E4%BA%91ecs%E6%90%AD%E5%BB%BAdocker/</guid>
+      
+        <description>&lt;p&gt;云服务器Elastic Compute Service（ECS）是阿里云提供的一种基础云计算服务。在其上搭建Docker步骤和注意事项&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;系统：CentOS 7.0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;centos安装docker&#34;&gt;CentOS安装Docker&lt;/h2&gt;
+&lt;h3 id=&#34;添加yum源&#34;&gt;添加&lt;code&gt;yum&lt;/code&gt;源&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;yum install epel-release –y
+yum clean all
+yum list
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;安装并运行docker&#34;&gt;安装并运行Docker&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;yum install docker-io –y
+systemctl start docker
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;检查安装结果&#34;&gt;检查安装结果&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker info
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;镜像加速器设置&#34;&gt;镜像加速器设置&lt;/h3&gt;
+&lt;p&gt;安装完成之后，&lt;code&gt;docker pull&lt;/code&gt; 发现无法拉取镜像，需要设置镜像加速器&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &amp;lt;&amp;lt;-&amp;#39;EOF&amp;#39;
+{
+  &amp;#34;registry-mirrors&amp;#34;: [&amp;#34;https://opcl0w45.mirror.aliyuncs.com&amp;#34;]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://cr.console.aliyun.com/cn-shenzhen/mirrors&#34;&gt;阿里云控制端容器镜像服务&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker run -p 80:80 -p 443:443 --name nginx \
+ -v /volume/nginx/html:/usr/share/nginx/html \
+ -v /volume/nginx/conf.d:/etc/nginx/conf.d \
+ -v /volume/nginx/logs:/var/log/nginx \
+ -d nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;-v /volume/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Docker部署nginx</title>
+      <link>http://localhost:1313/post/docker%E9%83%A8%E7%BD%B2nginx/</link>
+      <pubDate>Sun, 05 Aug 2018 15:11:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/docker%E9%83%A8%E7%BD%B2nginx/</guid>
+      
+        <description>&lt;p&gt;Nginx (engine x) 是一个高性能的HTTP和反向代理服务，也是一个IMAP/POP3/SMTP服务。利用Docker安装nginx步骤和注意事项&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;系统：CentOS 7.0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;centos安装docker&#34;&gt;CentOS安装Docker&lt;/h2&gt;
+&lt;h3 id=&#34;拉取nginx镜像&#34;&gt;拉取nginx镜像&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker pull nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;启动容器&#34;&gt;启动容器&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker run -p 80:80 -p 443:443 --name nginx \
+ -v /volume/nginx/html:/usr/share/nginx/html \
+ -v /volume/nginx/conf.d:/etc/nginx/conf.d \
+ -v /volume/nginx/logs:/var/log/nginx \
+ -d nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;nginx配置&#34;&gt;nginx配置&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;log_format proxyformat &amp;#34;$remote_addr $request_time $http_x_readtime [$time_local] \&amp;#34;$request_method http://$host$request_uri\&amp;#34; $status $body_bytes_sent \&amp;#34;$http_referer\&amp;#34; \&amp;#34;$upstream_addr\&amp;#34; \&amp;#34;$http_user_agent\&amp;#34; \&amp;#34;$upstream_response_time\&amp;#34; \&amp;#34;$request_time\&amp;#34;&amp;#34;;
+
+
+server {
+  listen 80;
+  server_name ali.hellowood.com.cn;
+  location / {
+	proxy_pass http://172.17.0.1:8080;
+	proxy_set_header Host $http_host;                    
+	proxy_set_header X-Real-IP $remote_addr;                    
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;查询宿主机-ip&#34;&gt;查询宿主机 IP&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker inspect --format &amp;#39;{{ .NetworkSettings.IPAddress }}&amp;#39; &amp;lt;container-ID&amp;gt; 
+
+# 或
+docker inspect &amp;lt;container id&amp;gt; 
+
+# 或
+docker inspect -f &amp;#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&amp;#39; container_name_or_id
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;-v /volume/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>docker部署gogs</title>
+      <link>http://localhost:1313/post/docker%E9%83%A8%E7%BD%B2gogs/</link>
+      <pubDate>Tue, 10 Jul 2018 10:34:25 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/docker%E9%83%A8%E7%BD%B2gogs/</guid>
+      
+        <description>&lt;p&gt;利用docker部署gogs，利用nginx反向代理gogs，暴露80端口，配置域名git.xxxx.com&lt;/p&gt;
+&lt;h3 id=&#34;1-mysql数据库安装&#34;&gt;1. Mysql数据库安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -d --name master01 -v /volume/mysql/data/master01:/var/lib/mysql -v /volume/mysql/master01:/etc/mysql/conf.d -e &lt;span class=&#34;nv&#34;&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xzz520 -p 32769:3306 mysql:5.7
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;2-gogs安装&#34;&gt;2. gogs安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -d --name&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;mygogs -p 10080:3000 -v /volume/gogs:/data gogs/gogs
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;3-nginx安装&#34;&gt;3. nginx安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -p 80:80 --name nginx -v /volume/nginx/html:/usr/share/nginx/html -v /volume/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /volume/nginx/conf.d:/etc/nginx/conf.d -v /volume/nginx/logs:/var/log/nginx -d nginx
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/bingo1024/p/9022890.html&#34;&gt;Docker安装nginx&lt;/a&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>搭建ssr&#43;polipo</title>
+      <link>http://localhost:1313/post/%E6%90%AD%E5%BB%BAssr-polipo/</link>
+      <pubDate>Wed, 27 Jun 2018 13:40:35 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/%E6%90%AD%E5%BB%BAssr-polipo/</guid>
+      
+        <description>&lt;p&gt;&lt;a href=&#34;https://github.com/storezhang/docker-ssr-client&#34;&gt;https://github.com/storezhang/docker-ssr-client&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;docker run -d -name ssrp -p 1081:1081 -v /etc/ssrp/data:/ssr-data&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -d --name ssrp -p 1081:1081 -v /etc/ssrp/data:/ssr-data storezhang/ssr-client
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker exec -i bb2 /bin/sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker pull breakwa11/shadowsocksr
+
+docker run -itd -p 8888:8888 --env &lt;span class=&#34;nv&#34;&gt;SERVER_PORT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;8888&lt;/span&gt; --env &lt;span class=&#34;nv&#34;&gt;PASSWORD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PASSWORD&lt;/span&gt; --name ssr breakwa11/shadowsocksr
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>搭建gitlab</title>
+      <link>http://localhost:1313/post/%E6%90%AD%E5%BB%BAgitlab/</link>
+      <pubDate>Wed, 27 Jun 2018 11:25:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/%E6%90%AD%E5%BB%BAgitlab/</guid>
+      
+        <description>&lt;h3 id=&#34;docker安装gitlab镜像&#34;&gt;docker安装gitlab镜像&lt;/h3&gt;
+&lt;h4 id=&#34;1-镜像拉取&#34;&gt;1. 镜像拉取&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker pull gitlab/gitlab-ce:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://www.centos.bz/2017/07/docker-install-gitlab-external-nginx/&#34;&gt;https://www.centos.bz/2017/07/docker-install-gitlab-external-nginx/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/liyangLife/p/8176791.html&#34;&gt;https://www.cnblogs.com/liyangLife/p/8176791.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/u011054333/article/details/61532271&#34;&gt;https://blog.csdn.net/u011054333/article/details/61532271&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/gdlinux/p/6760919.html&#34;&gt;https://www.cnblogs.com/gdlinux/p/6760919.html&lt;/a&gt;&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>前端动画笔记</title>
+      <link>http://localhost:1313/post/%E5%89%8D%E7%AB%AF%E5%8A%A8%E7%94%BB%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 13 Jun 2018 09:40:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/%E5%89%8D%E7%AB%AF%E5%8A%A8%E7%94%BB%E7%AC%94%E8%AE%B0/</guid>
+      
+        <description>&lt;p&gt;前端网页制作动画的几种方式&lt;/p&gt;
+&lt;h3 id=&#34;1-css的transition&#34;&gt;1. css的transition&lt;/h3&gt;
+&lt;p&gt;语法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;transition: property duration timing-function delay;
+默认值： all 0 ease 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;property:填写需要变化的css属性如：width,line-height,font-size,color等;
+duration:完成过渡效果需要的时间（2s 或者2000ms）
+timing-function:完成效果的速度曲线（linear,ease,ease-in,ease-out等等）&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;值&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;linear&lt;/td&gt;
+&lt;td&gt;匀速（等于 cubic-bezier(0,0,1,1)）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ease&lt;/td&gt;
+&lt;td&gt;从慢到快再到慢（cubic-bezier(0.25,0.1,0.25,1)）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ease-in&lt;/td&gt;
+&lt;td&gt;慢慢变快（等于 cubic-bezier(0.42,0,1,1)）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ease-out&lt;/td&gt;
+&lt;td&gt;慢慢变慢（等于 cubic-bezier(0,0,0.58,1)）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ease-in-out&lt;/td&gt;
+&lt;td&gt;先变快再到慢（等于 cubic-bezier(0.42,0,0.58,1)）。渐显渐隐效果&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;cubic-bezier(&lt;em&gt;n&lt;/em&gt;,&lt;em&gt;n&lt;/em&gt;,&lt;em&gt;n&lt;/em&gt;,&lt;em&gt;n&lt;/em&gt;)&lt;/td&gt;
+&lt;td&gt;在 cubic-bezier 函数中定义自己的值。可能的值是 0 至 1 之间的数值。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;timing-delay:动画效果的延迟触发时间（2s 或者2000ms）。&lt;/p&gt;
+&lt;h3 id=&#34;2-css3的animation属性&#34;&gt;2. css3的animation属性&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.w3school.com.cn/css3/css3_animation.asp&#34;&gt;w3school教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;语法&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;animation: name duration timing-function delay iteration-count direction;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;name:keyframe的名称，也就是定义了关键帧的动画的名称,这个名称用来区别不同的动画。
+duration:完成动画所需要的时间（2s 或者 2000ms）
+timing-function:完成动画的速度曲线
+delay：动画开始之前的延迟
+iteration-count：动画播放次数
+direction：是否轮流反向播放动画（normal:正常顺序播放，alternate下一次反向播放）如果把动画设置为只播放一次，则该属性没有效果。&lt;/p&gt;
+&lt;h3 id=&#34;3-原生js动画&#34;&gt;3. 原生js动画&lt;/h3&gt;
+&lt;p&gt;利用js代码setInterval函数，将动画一帧一帧的绘制出来&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&amp;lt;div id=&amp;#34;odiv&amp;#34; class=&amp;#34;odiv&amp;#34;&amp;gt;
+     &amp;lt;div id=&amp;#34;sdiv&amp;#34; class=&amp;#34;sdiv&amp;#34;&amp;gt;
+     &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+ 
+&amp;lt;script language=&amp;#34;javascript&amp;#34;&amp;gt;
+window.onload = function(){
+     var odiv = document.getElementById(&amp;#39;odiv&amp;#39;);
+     odiv.onmouseover = function(){
+      startMover(0);
+ }
+ odiv.onmouseout = function(){
+      startMover(-200);
+ }
+}
+var timer = null;
+function startMover(a){//速度和目标值
+     clearInterval(timer);//执行当前动画同时清除之前的动画
+     var odiv = document.getElementById(&amp;#39;odiv&amp;#39;);
+ timer = setInterval(function(){
+     var speed = (a-odiv.offsetLeft)/10;//缓冲动画的速度参数变化值
+ //如果速度是大于0，说明是向右走，那么就向上取整
+     speed = speed&amp;gt;0?Math.ceil(speed):Math.floor(speed);
+ //Math.floor();向下取整
+     if(odiv.offsetLeft == a){
+      clearInterval(timer);
+     }
+ else{
+      odiv.style.left = odiv.offsetLeft+speed+&amp;#39;px&amp;#39;;
+  }
+ },30);
+}
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Android Studio下的Gradle版本更新</title>
+      <link>http://localhost:1313/post/gradle%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Fri, 01 Jun 2018 10:20:24 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/gradle%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/</guid>
+      
+        <description>&lt;p&gt;Androd Studio升级之后，相应的gradle版本也需要升级，如果任由Android Studio程序自动更新gradle，由于网络的原因，下载最新的Gradle会很慢或者直接失败&lt;/p&gt;
+&lt;h3 id=&#34;下载gradle&#34;&gt;下载Gradle&lt;/h3&gt;
+&lt;p&gt;gradle的&lt;a href=&#34;https://services.gradle.org/distributions/&#34;&gt;官方下载地址&lt;/a&gt;，打开后下载对应的gradle-x.x-all.zip版本，也可以复制下载链接到迅雷中&lt;/p&gt;
+&lt;h3 id=&#34;替换本地gradle&#34;&gt;替换本地gradle&lt;/h3&gt;
+&lt;p&gt;将下载下来的gradle-x.x-all.zip压缩文件直接复制到用户目录&lt;code&gt;USER_HOME/.gradle/wrapper/dists/gradle-x.x-all/8bnwg5hd3w55iofp58khbp6yv/&lt;/code&gt;目录下，该目录下的其它文件全部删除，8bnwg5hd3w55iofp58khbp6yv这个目录是由Android Studio自动生成的，不可更改。&lt;/p&gt;
+&lt;p&gt;重新打开Android Studio，会自动解压并生成文件，到此gradle更新完成。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>PS快捷键</title>
+      <link>http://localhost:1313/post/ps%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+      <pubDate>Thu, 24 May 2018 22:51:48 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ps%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+      
+        <description>&lt;p&gt;photoshop快捷键记录&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;#&lt;/th&gt;
+&lt;th&gt;功能&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;快捷键&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;填充前景色&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Alt+Delete&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;填充背景色&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Ctrl+Delete&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>服务器端口修改防扫描攻击</title>
+      <link>http://localhost:1313/post/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%8F%A3%E4%BF%AE%E6%94%B9%E9%98%B2%E6%89%AB%E6%8F%8F%E6%94%BB%E5%87%BB/</link>
+      <pubDate>Tue, 22 May 2018 09:45:21 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%8F%A3%E4%BF%AE%E6%94%B9%E9%98%B2%E6%89%AB%E6%8F%8F%E6%94%BB%E5%87%BB/</guid>
+      
+        <description>&lt;p&gt;服务器可能会受到暴力破解SSH登录，批量端口扫描等问题，所有服务器需要防暴力破解，修改或关闭常用的端口&lt;/p&gt;
+&lt;h3 id=&#34;尝试登录到服务器的密码尝试失败的ip和次数&#34;&gt;尝试登录到服务器的密码尝试失败的ip和次数&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;grep &lt;span class=&#34;s2&#34;&gt;&amp;#34;Failed&amp;#34;&lt;/span&gt; /var/log/secure &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; awk &lt;span class=&#34;s1&#34;&gt;&amp;#39;{print $(NF-3)}&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; awk &lt;span class=&#34;s1&#34;&gt;&amp;#39;{print $1&amp;#34;=&amp;#34;$2;}&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;修改ssh登录的连接端口&#34;&gt;修改SSH登录的连接端口&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;首先，我们可以打开SSH的配置文件，该文件的目录在/etc/ssh/sshd_config中，打开这个文件，我们能够看到如下的内容：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;# If you want to change the port on a SELinux system, you have to tell  
+# SELinux about this change.  
+# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER  
+#  
+#Port 22  
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修改登录端口号，这里默认配置的是22端口，我们需要修改的就是这个端口号。即我们在下面添加一个自定义的未被占用的端口号作为登录SSH的端口号使用。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;# If you want to change the port on a SELinux system, you have to tell  
+# SELinux about this change.  
+# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER  
+#  
+#Port 22  
+Port XXX //自定义端口号
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用新的端口号进行连接登录，特别注意的是，为了防止新增的端口号可能无效，而旧的22端口号也已经被注释了。这个时候就悲剧了。所以我们一定要先把22端口保持开放。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ssh -p xxx root@ip
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;关闭22端口号。新的验证登录没有问题之后，我们再把旧的22端口进行关闭，甚至可以直接把该端口都关闭，使其无法连接该端口。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;利用脚本屏蔽ssh登录失败次数多的ip&#34;&gt;利用脚本屏蔽SSH登录失败次数多的ip&lt;/h3&gt;
+&lt;p&gt;如果想定时的屏蔽ssh登录失败过多的IP，可以用 计划任务+脚本 完成。对于ssh服务，屏蔽IP较多的情况下，用 tcp wrapper 是比较理想的，其配置文件是 /etc/hosts.{deny|allow}，这里需要使用 /etc/hosts.deny 来屏蔽掉恶意访问的IP&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;创建脚本，脚本内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; PATH
+   
+cat /var/log/secure &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; awk &lt;span class=&#34;s1&#34;&gt;&amp;#39;/Failed/{print $(NF-3)}&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; awk &lt;span class=&#34;s1&#34;&gt;&amp;#39;{print $2&amp;#34;=&amp;#34;$1;}&amp;#39;&lt;/span&gt; &amp;gt; /root/sshblack.txt
+&lt;span class=&#34;nv&#34;&gt;LIMIT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;cat /root/sshblack.txt&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;IP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;`echo &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; | awk -F = &amp;#39;{print &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;}&amp;#39;`&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;TIMES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;`echo &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; | awk -F = &amp;#39;{print &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;}&amp;#39;`&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$TIMES&lt;/span&gt; -ge &lt;span class=&#34;nv&#34;&gt;$LIMIT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+        grep &lt;span class=&#34;nv&#34;&gt;$IP&lt;/span&gt; /etc/hosts.deny &amp;gt; /dev/null
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt; !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+            &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;sshd:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$IP&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:deny&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /etc/hosts.deny
+        &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+   
+&lt;span class=&#34;c1&#34;&gt;#如果添加到crontab, 要了解是否执行成功？那么可以添加一行日志&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt; -eq &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;`date +&amp;#34;&lt;/span&gt;%b %d %T&lt;span class=&#34;s2&#34;&gt;&amp;#34;` &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$HOSTNAME&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; ssh_cron.sh finished.&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /var/log/messages
+&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;`date +&amp;#34;&lt;/span&gt;%b %d %T&lt;span class=&#34;s2&#34;&gt;&amp;#34;` &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$HOSTNAME&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; ssh_cron.sh failed.&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /var/log/messages
+&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;crontab -e 编辑任务计划，添加比如每天凌晨2点整，静默执行一次&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;00 2 * * * sh /root/ssh_cron.sh &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
+# 2&amp;gt;&amp;amp;1 写法等同于 sh /root/ssh_cron.sh &amp;amp;&amp;gt; /dev/null 
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;centos-7安装fail2ban--firewalld防止爆破与cc攻击&#34;&gt;CentOS 7安装fail2ban + Firewalld防止爆破与CC攻击&lt;/h3&gt;
+&lt;p&gt;查看fail2ban屏蔽信息&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;fail2ban-client status sshd
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://www.xiaoz.me/archives/9831&#34;&gt;CentOS 7安装fail2ban + Firewalld防止爆破与CC攻击&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-centos-7&#34;&gt;fail2ban&lt;/a&gt;&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>docker MySQL主从复制</title>
+      <link>http://localhost:1313/post/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</link>
+      <pubDate>Sat, 19 May 2018 22:53:33 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</guid>
+      
+        <description>&lt;p&gt;master01.cnf配置&lt;/p&gt;
+&lt;p&gt;[mysqld]
+log-bin=mysql-master01-bin # 使用binary logging，mysql-master01-bin是log文件名的前缀
+server-id=1 # 唯一服务器ID，非0整数，不能和其他服务器的server-id重复&lt;/p&gt;
+&lt;p&gt;创建master01容器&lt;/p&gt;
+&lt;p&gt;docker run -d &amp;ndash;name master01 -v /mysql/data/master01:/var/lib/mysql -v /mysql/master01:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=xzz520 -p 3306:3306 mysql:5.7&lt;/p&gt;
+&lt;p&gt;show master status; # 查看master的状态&lt;/p&gt;
+&lt;p&gt;SET sql_mode=(SELECT REPLACE(@@sql_mode,&amp;lsquo;ONLY_FULL_GROUP_BY&amp;rsquo;,&#39;&#39;));
+GRANT REPLICATION SLAVE ON &lt;em&gt;.&lt;/em&gt; to &amp;lsquo;backup&amp;rsquo;@&#39;%&amp;rsquo; identified by &amp;lsquo;123456&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;SET sql_mode=(SELECT REPLACE(@@sql_mode,&amp;lsquo;ONLY_FULL_GROUP_BY&amp;rsquo;,&#39;&#39;));
+GRANT REPLICATION SLAVE ON &lt;em&gt;.&lt;/em&gt; to &amp;lsquo;backup&amp;rsquo;@&#39;%&amp;rsquo; identified by &amp;lsquo;123456&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;创建一个用户
+CREATE USER &amp;lsquo;backup&amp;rsquo;@&amp;lsquo;X.X.X.X&amp;rsquo; IDENTIFIED BY &amp;lsquo;123456&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;赋予“REPLICATION SLAVE”的权限
+GRANT REPLICATION SLAVE ON &lt;em&gt;.&lt;/em&gt; TO &amp;lsquo;user&amp;rsquo;@&amp;lsquo;X.X.X.X&amp;rsquo; IDENTIFIED BY &amp;lsquo;123456&amp;rsquo;;
+grant replication slave on &lt;em&gt;.&lt;/em&gt; to &lt;a href=&#34;mailto:slave@112.74.34.233&#34;&gt;slave@112.74.34.233&lt;/a&gt; identified by &amp;lsquo;slave&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;slave01.cnf配置&lt;/p&gt;
+&lt;p&gt;[mysqld]
+log-bin=mysql-slave01-bin
+server-id=2&lt;/p&gt;
+&lt;p&gt;创建slave01容器&lt;/p&gt;
+&lt;p&gt;docker run -d &amp;ndash;name slave01 -v /mysql/data//slave01:/var/lib/mysql -v /mysql/slave01:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=xzz520 -p 3306:3306 mysql:5.7&lt;/p&gt;
+&lt;p&gt;在slave01中配置与master01相关的内容&lt;/p&gt;
+&lt;p&gt;SET sql_mode=(SELECT REPLACE(@@sql_mode,&amp;lsquo;ONLY_FULL_GROUP_BY&amp;rsquo;,&#39;&#39;));&lt;/p&gt;
+&lt;p&gt;change master to master_host=&#39;144.202.114.103&amp;rsquo;,master_port=3306,master_user=&#39;slave&amp;rsquo;,master_password=&#39;slave&amp;rsquo;,master_log_file=&#39;mysql-master01-bin.000003&amp;rsquo;, master_log_pos=2720;&lt;/p&gt;
+&lt;p&gt;change master to master_host=&#39;192.168.10.223&amp;rsquo;,master_port=3306,master_user=&#39;backup&amp;rsquo;,master_password=&#39;123456&amp;rsquo;,master_log_file=&#39;mysql-master01-bin.000003&amp;rsquo;, master_log_pos=154;&lt;/p&gt;
+&lt;p&gt;master_host是宿主机的IP（ifconfig查到的操作系统IP，不是容器的IP，一定不能搞错）
+master_port是主服务器的映射到3306的端口（默认3306）
+master_user为创建的备份用户
+master_password备份用户的密码
+master_log_file和master_log_pos则是show master status列表里面的两个值，分别是mysql日志名和起始备份位置&lt;/p&gt;
+&lt;p&gt;start slave;&lt;/p&gt;
+&lt;p&gt;show slave status;&lt;/p&gt;
+&lt;p&gt;如果是Waiting for master to send event则说明主从复制成功了，若是Connecting to master肯定是配置错误，楼主就错了几次，重删除配置一下就行，这就是容器的好处，删除的代价很小，短时间就可以恢复。如果是Waiting for master to send event，对主库的增删改查从库都会同步修改。&lt;/p&gt;
+&lt;p&gt;删除用户
+drop user test;&lt;/p&gt;
+&lt;p&gt;查看权限&lt;/p&gt;
+&lt;p&gt;show grants ;  #查看自己的权限&lt;/p&gt;
+&lt;p&gt;show grants for backup@&amp;lsquo;xxx.xxx.xx.xx&amp;rsquo;; #查看其他用户的权限。&lt;/p&gt;
+&lt;p&gt;select * from mysql.user where user=&#39;backup&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;　二、常用命令&lt;/p&gt;
+&lt;p&gt;　　1、显示当前数据库服务器中的数据库列表：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; SHOW DATABASES;&lt;/p&gt;
+&lt;p&gt;　　2、建立数据库：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; CREATE DATABASE 库名;&lt;/p&gt;
+&lt;p&gt;　　3、建立数据表：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; USE 库名;&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; CREATE TABLE 表名 (字段名 VARCHAR(20), 字段名 CHAR(1));&lt;/p&gt;
+&lt;p&gt;　　4、删除数据库：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; DROP DATABASE 库名;&lt;/p&gt;
+&lt;p&gt;　　5、删除数据表：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; DROP TABLE 表名;&lt;/p&gt;
+&lt;p&gt;　　6、将表中记录清空：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; DELETE FROM 表名;&lt;/p&gt;
+&lt;p&gt;　　7、往表中插入记录：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; INSERT INTO 表名 VALUES (&amp;ldquo;hyq&amp;rdquo;,&amp;ldquo;M&amp;rdquo;);&lt;/p&gt;
+&lt;p&gt;　　8、更新表中数据：&lt;/p&gt;
+&lt;p&gt;　　mysql-&amp;gt; UPDATE 表名 SET 字段名1=&#39;a&amp;rsquo;,字段名2=&#39;b&amp;rsquo; WHERE 字段名3=&#39;c&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;　　9、用文本方式将数据装入数据表中：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; LOAD DATA LOCAL INFILE &amp;ldquo;D:/mysql.txt&amp;rdquo; INTO TABLE 表名;&lt;/p&gt;
+&lt;p&gt;　　10、导入.sql文件命令：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; USE 数据库名;&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; SOURCE d:/mysql.sql;&lt;/p&gt;
+&lt;p&gt;　　11、命令行修改root密码：&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; UPDATE mysql.user SET password=PASSWORD(&amp;lsquo;新密码&amp;rsquo;) WHERE User=&#39;root&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;　　mysql&amp;gt; FLUSH PRIVILEGES;&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>ArrayMap源码阅读</title>
+      <link>http://localhost:1313/post/arraymap%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</link>
+      <pubDate>Fri, 18 May 2018 10:11:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/arraymap%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</guid>
+      
+        <description>&lt;p&gt;ArrayMap 可以用来代替HashMap，它是一个&amp;lt;key,value&amp;gt;映射的数据结构，设计上更多的是考虑了内存的优化。&lt;/p&gt;
+&lt;h3 id=&#34;arraymap基础知识&#34;&gt;ArrayMap基础知识&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ArrayMap 位于 &lt;a href=&#34;https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/util/ArrayMap.java&#34;&gt;android.util.ArrayMap&lt;/a&gt;和&lt;a href=&#34;https://github.com/aosp-mirror/platform_frameworks_support/blob/master/compat/src/main/java/android/support/v4/util/ArrayMap.java&#34;&gt;android.support.v4.util.ArrayMap&lt;/a&gt;包中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;ArrayMap在设计上比传统的HashMap更多的考虑了内存的优化，可以理解为以时间换空间的一种优化。它使用了两个数组来存储数据——一个整型数组存储键的hashCode，另一个对象数组存储键/值对。这样既能避免为每个存入map中的键创建额外的对象，又能更积极的控制这些数据的长度的增加。因为增加长度只需要拷贝数组中的键，而不是重新构建一个哈希表。&lt;/p&gt;
+&lt;p&gt;针对Android这种移动平台，也推出了更符合自己的api，比如SparseArray、ArrayMap用来代替HashMap在有些情况下能带来更好的性能提升。&lt;/p&gt;
+&lt;p&gt;ArrayMap是一个&amp;lt;key,value&amp;gt;映射的数据结构，它设计上更多的是考虑内存的优化，内部是使用两个数组进行数据存储，一个数组记录key的hash值，另外一个数组记录Value值，它和SparseArray一样，也会对key使用二分法进行从小到大排序，在添加、删除、查找数据的时候都是先使用二分查找法得到相应的index，然后通过index来进行添加、查找、删除等操作，所以，应用场景和SparseArray的一样，如果在数据量比较大的情况下，那么它的性能将退化至少50%。&lt;/p&gt;
+&lt;p&gt;推荐的数据结构:
+• ArrayMap&amp;lt;K,V&amp;gt; 替代 HashMap&amp;lt;K,V&amp;gt;
+• ArraySet&amp;lt;K,V&amp;gt; 替代 HashSet&amp;lt;K,V&amp;gt;
+• SparseArray&lt;!-- raw HTML omitted --&gt; 替代 HashMap&amp;lt;Integer,V&amp;gt;
+• SparseBooleanArray 替代 HashMap&amp;lt;Integer,Boolean&amp;gt;
+• SparseIntArray 替代 HashMap&amp;lt;Integer,Integer&amp;gt;
+• SparseLongArray 替代 HashMap&amp;lt;Integer,Long&amp;gt;
+• LongSparseArray&lt;!-- raw HTML omitted --&gt; 替代 HashMap&amp;lt;Long,V&amp;gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>docker golang编译</title>
+      <link>http://localhost:1313/post/docker-golang%E7%BC%96%E8%AF%91/</link>
+      <pubDate>Tue, 15 May 2018 10:20:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/docker-golang%E7%BC%96%E8%AF%91/</guid>
+      
+        <description>&lt;h3 id=&#34;基于scratch镜像&#34;&gt;基于scratch镜像&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Docker生态系统有一个特殊的镜像：scratch.这是一个空镜像。它不需要被创建或者下载，因为定义的就是空的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;1-在golang项目目录创建dockerfile文件&#34;&gt;1. 在golang项目目录，创建Dockerfile文件&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;FROM scratch
+COPY ./hello /hello
+ENTRYPOINT &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/hello&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;2-在golang项目目录下交叉编译构建项目&#34;&gt;2. 在golang项目目录下，交叉编译构建项目&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;GOOS=linux GOARCH=amd64 go build -o hello *.go
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;3-在运行docker服务器上创建镜像&#34;&gt;3. 在运行docker服务器上，创建镜像&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;chmod +x hello
+docker build -t hello .
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;4-在运行docker服务器上检查镜像是否生成成功并运行&#34;&gt;4. 在运行docker服务器上，检查镜像是否生成成功并运行&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;docker images
+docker run hello
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;参考&#34;&gt;参考&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;http://dockone.io/article/1712&#34;&gt;Docker与Golang的巧妙结合&lt;/a&gt;&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>
